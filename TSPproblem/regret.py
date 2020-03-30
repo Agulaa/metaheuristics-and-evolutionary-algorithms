@@ -8,7 +8,7 @@ class Regret():
         pass
 
 
-    def find_best_vert(self, matrix, visited):
+    def find_two_best_verts(self, matrix, visited):
         lowest_cost_for_edges = {}
         best_vert_for_edges = {}
         to_check = list(set(range(len(matrix))) - set(visited))
@@ -40,14 +40,14 @@ class Regret():
         for _ in range(0, vertNo - 2):
             temp_visited = visited.copy()
             temp_visited2 = visited.copy()
-            best_key, best_key2, best_vert_for_edges = self.find_best_vert(matrix, visited)
-            temp_visited = np.insert(np.array(temp_visited), best_key[1], best_vert_for_edges[best_key])
-            temp_visited = np.insert(np.array(temp_visited), best_key2[1], best_vert_for_edges[best_key2])
-            cost1 = count_distance(matrix, temp_visited)
-            temp_visited2 = np.insert(np.array(temp_visited2), best_key2[1], best_vert_for_edges[best_key2])
-            temp_visited2 = np.insert(np.array(temp_visited2), best_key[1], best_vert_for_edges[best_key])
-            cost2 = count_distance(matrix, temp_visited2)
-            if cost1 < cost2:
+            best_key, best_key2, best_vert_for_edges = self.find_two_best_verts(matrix, visited) # find two best vert which distance to visited egdes is min
+            temp_visited = np.insert(np.array(temp_visited), best_key[1], best_vert_for_edges[best_key]) # add first best
+            temp_visited = np.insert(np.array(temp_visited), best_key2[1], best_vert_for_edges[best_key2]) # add second next best
+            cost1 = count_distance(matrix, temp_visited) # calculate cost
+            temp_visited2 = np.insert(np.array(temp_visited2), best_key2[1], best_vert_for_edges[best_key2]) # add first second best
+            temp_visited2 = np.insert(np.array(temp_visited2), best_key[1], best_vert_for_edges[best_key]) # add second first best
+            cost2 = count_distance(matrix, temp_visited2) # calculate cost
+            if cost1 > cost2: # insert value with
                 visited = np.insert(np.array(visited), best_key[1], best_vert_for_edges[best_key])
             else:
                 visited = np.insert(np.array(visited), best_key2[1], best_vert_for_edges[best_key2])

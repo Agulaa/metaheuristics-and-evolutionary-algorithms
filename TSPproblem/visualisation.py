@@ -10,6 +10,7 @@ def plot_result(coords, visitedMatrix, path_to_save, name):
 
     x_to_plot.append(X[visitedMatrix[0]])
     y_to_plot.append(Y[visitedMatrix[0]])
+
     for i, txt in enumerate(visitedMatrix):
         plt.scatter(x_to_plot[i], y_to_plot[i])
         plt.text(x_to_plot[i], y_to_plot[i], str(txt), fontsize=9)

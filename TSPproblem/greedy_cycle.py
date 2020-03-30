@@ -19,19 +19,19 @@ class GreedCycle():
         for _ in range(0, vertNo - 2):
             lowest_cost_for_edges = {}
             best_vert_for_edges = {}
-            to_check = list(set(range(len(matrix))) - set(visited))
+            to_check = list(set(range(len(matrix))) - set(visited)) # all vert not visited
             # for all edges check distances to all free verts and get min cost
             for j in range(len(visited) - 1):
                 new_vert_cost = {}
-                for v in to_check:
-                    new_vert_cost[v] = cost(visited[j], visited[j + 1], v, matrix)
-                min_cost_key = int(min(new_vert_cost, key=new_vert_cost.get))
-                lowest_cost_for_edges[(j, j + 1)] = new_vert_cost[min_cost_key]
-                best_vert_for_edges[(j, j + 1)] = min_cost_key
+                for v in to_check:  # check all not visited vert
+                    new_vert_cost[v] = cost(visited[j], visited[j + 1], v, matrix) # method cost calculate distance between new vert and egdes from visited [j] &[j+1]
+                min_cost_key = int(min(new_vert_cost, key=new_vert_cost.get)) #  minimum distance
+                lowest_cost_for_edges[(j, j + 1)] = new_vert_cost[min_cost_key] # minimum distance for all edges
+                best_vert_for_edges[(j, j + 1)] = min_cost_key # vert
             # final edge cost (last in list and first)
             new_vert_cost = {}
             for v in to_check:
-                new_vert_cost[v] = cost(visited[-1], visited[0], v, matrix)
+                new_vert_cost[v] = cost(visited[-1], visited[0], v, matrix) # check last and first vert(one edges) from visited
             min_cost_key = int(min(new_vert_cost, key=new_vert_cost.get))
             lowest_cost_for_edges[(len(visited) - 1, 0)] = new_vert_cost[min_cost_key]
             best_vert_for_edges[(len(visited) - 1, 0)] = min_cost_key
