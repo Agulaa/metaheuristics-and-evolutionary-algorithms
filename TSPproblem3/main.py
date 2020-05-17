@@ -22,6 +22,7 @@ def do(matrix, steep, fastSteep, coords):
     all_visited = []
     all_distance = []
     all_time = []
+
     for n in range(100):
 
         start, not_start = start_solution(coords)
